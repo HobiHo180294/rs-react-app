@@ -30,3 +30,7 @@ export interface Photo {
   urls: PhotoUrls;
   links: PhotoLinks;
 }
+
+export interface Photos {
+  photos: Photo[];
+}

@@ -1,10 +1,12 @@
-import { SearchBar } from '@/features';
+import { Component, lazy, Suspense } from 'react';
 import { ErrorTrigger, PhotoCardsGrid } from '@/widgets';
-import { Component } from 'react';
+import { SearchBar } from '@/features';
 
 interface State {
   galleryName: string;
 }
+
+const PhotoGallery = lazy(() => import('@/features/PhotoGallery/PhotoGallery'));
 
 export default class GalleryPage extends Component<unknown, State> {
   state = {
@@ -29,7 +31,9 @@ export default class GalleryPage extends Component<unknown, State> {
           />
         </header>
         <main className="px-4 py-8 min-h-full flex-1 relative">
-          <PhotoCardsGrid collectionName={galleryName} />
+          <Suspense fallback={<PhotoCardsGrid />}>
+            <PhotoGallery collectionName={galleryName} />
+          </Suspense>
         </main>
         <footer className="p-4 flex justify-center">
           <ErrorTrigger />
