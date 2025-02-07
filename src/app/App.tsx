@@ -1,7 +1,8 @@
 import { Component } from 'react';
+import { GalleryPage } from '@/pages';
 
 export default class App extends Component {
   render() {
-    return <div>RS REACT APP</div>;
+    return <GalleryPage />;
   }
 }
