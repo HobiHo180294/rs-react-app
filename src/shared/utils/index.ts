@@ -1,14 +1,10 @@
 export const range = (start: number, end: number) =>
   Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
-export const formatSlug = (slug: string, id: string) => {
-  console.log('slug:', slug);
-  console.log('id:', id);
-
-  return !slug || !id
+export const formatSlug = (slug: string, id: string) =>
+  !slug || !id
     ? ''
     : slug.replace(id, '').replace(/-+/g, ' ').trim().toUpperCase();
-};
 
 export const formatNumber = (num: number): string => {
   const lookup = [
