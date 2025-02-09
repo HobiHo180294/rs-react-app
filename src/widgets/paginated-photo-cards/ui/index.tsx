@@ -18,7 +18,7 @@ export const PaginatedPhotoCards = ({
   const pages = range(start, end);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <PhotoCards photos={photos} />
       <Pagination>
         <Pagination.Item
