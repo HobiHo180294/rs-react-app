@@ -42,7 +42,7 @@ export default function GalleryPage() {
     const params = Object.fromEntries(searchParams);
 
     if (newValue) {
-      setSearchParams({ ...params, details: newValue });
+      setSearchParams({ ...params, [SEARCH_PARAMS.DETAILS]: newValue });
     } else {
       const newParams = { ...params };
       delete newParams.details;
@@ -67,8 +67,8 @@ export default function GalleryPage() {
               currentPage={Number(searchParams.get(SEARCH_PARAMS.PAGE))}
               onPageChange={(page) =>
                 setSearchParams((prev) => ({
-                  search: prev.get(SEARCH_PARAMS.SEARCH) || '',
-                  page: String(page),
+                  [SEARCH_PARAMS.SEARCH]: prev.get(SEARCH_PARAMS.SEARCH) || '',
+                  [SEARCH_PARAMS.PAGE]: String(page),
                 }))
               }
             />
