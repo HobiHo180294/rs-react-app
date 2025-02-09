@@ -1,13 +1,14 @@
 import { ERRORS } from '@/shared/constants';
+import { Children } from '@/shared/types';
 import { ErrorMessage } from '@/widgets/error-message/ui';
 import { Component, ErrorInfo } from 'react';
-import { ErrorBoundaryProps, ErrorBoundaryState } from '../model';
+import { ErrorBoundaryState } from '../model';
 
 export default class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
+  Children,
   ErrorBoundaryState
 > {
-  constructor(props: ErrorBoundaryProps) {
+  constructor(props: Children) {
     super(props);
     this.state = { error: null };
   }

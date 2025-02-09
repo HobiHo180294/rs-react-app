@@ -1,10 +1,6 @@
-import { Photos } from '@/entities/photo/model';
+import { Gallery } from '@/entities/gallery/model';
 
-export interface PhotoGalleryProps {
-  collection: string;
-}
-
-export interface PhotoGalleryState extends Photos {
-  isLoading: boolean;
-  error: string;
+export interface PhotoGalleryProps extends Gallery {
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }

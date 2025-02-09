@@ -1,12 +1,26 @@
 import { Card } from '@/entities/card/ui';
-import { FALLBACKS } from '@/shared/constants';
+import { Photo } from '@/entities/photo/model';
+import { FALLBACKS, SEARCH_PARAMS } from '@/shared/constants';
+import { useSearchParams } from 'react-router';
 import { PhotoCardProps } from '../model';
 
 export const PhotoCard = ({ photo }: PhotoCardProps) => {
+  const [, setSearchParams] = useSearchParams();
   const { urls, alt_description, description } = photo;
+
+  const handleClick = (photo: Photo): void => {
+    if (photo?.id) {
+      setSearchParams((prev) => ({
+        ...Object.fromEntries(prev),
+        [SEARCH_PARAMS.DETAILS]: photo.id,
+      }));
+    }
+  };
 
   return (
     <Card
+      className="cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group"
+      onClick={() => handleClick(photo)}
       renderImage={() => (
         <div>
           <img

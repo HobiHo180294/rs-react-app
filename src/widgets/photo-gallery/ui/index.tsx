@@ -1,40 +1,33 @@
-import { searchApi } from '@/entities/search/api';
-import { ERRORS } from '@/shared/constants';
+import { ERRORS, FALLBACKS } from '@/shared/constants';
 import { DUMMY_PHOTOS } from '@/shared/data';
+import { usePhotoGallery } from '@/shared/hooks';
 import { ErrorMessage } from '@/widgets/error-message/ui';
+import { PaginatedPhotoCards } from '@/widgets/paginated-photo-cards/ui';
 import { PhotoCards } from '@/widgets/photo-cards/ui';
-import { useEffect, useState } from 'react';
-import { PhotoGalleryProps, PhotoGalleryState } from '../model';
+import { PhotoGalleryProps } from '../model';
 
-export default function PhotoGallery({ collection }: PhotoGalleryProps) {
-  const [state, setState] = useState<PhotoGalleryState>({
-    photos: [],
-    isLoading: false,
-    error: '',
+export default function PhotoGallery({
+  collectionName,
+  currentPage,
+  onPageChange,
+}: PhotoGalleryProps) {
+  const { gallery, isLoading, error, handlePageChange } = usePhotoGallery({
+    collectionName,
+    currentPage,
+    setCurrentPage: onPageChange,
   });
 
-  useEffect(() => {
-    const loadPhotos = async (collection: string = '') => {
-      setState((prev) => ({ ...prev, isLoading: true, error: '' }));
-
-      try {
-        const photos = await searchApi.searchPhotos(collection);
-        setState((prev) => ({ ...prev, photos }));
-      } catch (error) {
-        setState((prev) => ({ ...prev, error: (error as Error).message }));
-      } finally {
-        setState((prev) => ({ ...prev, isLoading: false }));
-      }
-    };
-
-    loadPhotos(collection);
-  }, [collection]);
-
-  const { photos, isLoading, error } = state;
-
-  return error ? (
-    <ErrorMessage error={error} helperText={ERRORS.LOAD_CONTENT} />
-  ) : (
-    <PhotoCards photos={isLoading ? DUMMY_PHOTOS : photos} />
+  if (error) {
+    return <ErrorMessage error={error} helperText={ERRORS.LOAD_CONTENT} />;
+  }
+  if (isLoading) return <PhotoCards photos={DUMMY_PHOTOS} />;
+  if (!gallery.results.length) return <h2>{FALLBACKS.NOT_FOUND}</h2>;
+  return (
+    <PaginatedPhotoCards
+      photos={gallery.results}
+      currentPage={currentPage}
+      onPageChange={handlePageChange}
+      totalPages={gallery.total_pages}
+    />
   );
 }
