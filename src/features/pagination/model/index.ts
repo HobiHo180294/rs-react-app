@@ -1,7 +1,8 @@
-import { HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 
-export interface PaginationItemProps extends HTMLAttributes<HTMLSpanElement> {
+export interface PaginationItemProps extends HTMLAttributes<HTMLLIElement> {
   page: string | number;
+  tabElementProps: ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 export interface GetPagesCutParams {

@@ -1,24 +1,30 @@
-export const range = (start: number, end: number) =>
+import clsx, { ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export const range = (start: number, end: number): number[] =>
   Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
-export const formatSlug = (slug: string, id: string) =>
-  !slug || !id
-    ? ''
-    : slug.replace(id, '').replace(/-+/g, ' ').trim().toUpperCase();
+export const formatSlug = (slug: string, id: string): string =>
+  !slug || !id ? '' : slug.replace(id, '').replace(/-+/g, ' ').trim();
 
-export const formatNumber = (num: number): string => {
-  const lookup = [
-    { value: 1, symbol: '' },
-    { value: 1e3, symbol: 'K' },
-    { value: 1e6, symbol: 'M' },
-    { value: 1e9, symbol: 'B' },
-    { value: 1e12, symbol: 'T' },
-  ];
+export const formatNumber = (number: number): string => {
+  if (number === 0) return '0';
 
-  const item = lookup
-    .slice()
-    .reverse()
-    .find((item) => num >= item.value);
+  const isNegative = number < 0;
+  const absNumber = Math.abs(number);
 
-  return item ? (num / item.value).toFixed(0) + item.symbol : '0';
+  if (absNumber < 1) {
+    return isNegative ? '-' + absNumber.toString() : absNumber.toString();
+  }
+
+  const suffixes = ['', 'K', 'M', 'B', 'T'];
+  const exponent = Math.min(Math.floor(Math.log10(absNumber) / 3), 4);
+  const shortValue = Number(
+    (absNumber / Math.pow(1000, exponent)).toPrecision(3)
+  );
+
+  const formatted = `${shortValue}${suffixes[exponent]}`;
+  return isNegative ? '-' + formatted : formatted;
 };
+
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));

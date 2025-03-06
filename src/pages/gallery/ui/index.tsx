@@ -1,30 +1,31 @@
-import { Gallery } from '@/entities/gallery/model';
 import { ErrorTrigger } from '@/features/error-trigger/ui';
 import { SearchBar } from '@/features/search-bar/ui';
 import { LOCAL_STORAGE_GALLERY_KEY, SEARCH_PARAMS } from '@/shared/constants';
-import { DUMMY_PHOTOS } from '@/shared/data';
 import { useLocalStorage } from '@/shared/hooks';
-import { PhotoCards } from '@/widgets/photo-cards/ui';
+import { GalleryData, PhotoDetailsContext } from '@/shared/types';
+import { PhotoCardsGrid } from '@/widgets/photo-cards-grid/ui';
 import { lazy, Suspense, useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router';
 
 const PhotoGallery = lazy(() => import('@/widgets/photo-gallery/ui'));
 
 export default function GalleryPage() {
-  const [galleryData, setGalleryData] = useLocalStorage<Gallery>(
+  const [galleryData, setGalleryData] = useLocalStorage<GalleryData>(
     LOCAL_STORAGE_GALLERY_KEY,
     {
       collectionName: '',
     }
   );
   const [searchParams, setSearchParams] = useSearchParams();
-  const details = searchParams.get(SEARCH_PARAMS.DETAILS);
+  const detailsSearchParam = searchParams.get(SEARCH_PARAMS.DETAILS) || '';
 
   useEffect(() => {
     setSearchParams({
       [SEARCH_PARAMS.SEARCH]: galleryData.collectionName,
       [SEARCH_PARAMS.PAGE]: searchParams.get(SEARCH_PARAMS.PAGE) || '1',
-      ...(details ? { [SEARCH_PARAMS.DETAILS]: details } : {}),
+      ...(detailsSearchParam && {
+        [SEARCH_PARAMS.DETAILS]: detailsSearchParam,
+      }),
     });
   }, []);
 
@@ -38,7 +39,9 @@ export default function GalleryPage() {
     }
   };
 
-  const handleSetDetails = (newValue: string): void => {
+  const setDetailsSearchParam: PhotoDetailsContext['setPhotoSlug'] = (
+    newValue
+  ) => {
     const params = Object.fromEntries(searchParams);
 
     if (newValue) {
@@ -55,13 +58,20 @@ export default function GalleryPage() {
       <header className="bg-gray-900 flex flex-col items-center py-10 gap-5">
         <h1>Gallery</h1>
         <SearchBar
-          defaultValue={galleryData.collectionName}
+          inputProps={{
+            defaultValue: galleryData.collectionName,
+          }}
           onSearch={(query) => handleSearch(galleryData.collectionName, query)}
         />
       </header>
-      <main className="min-h-full flex-1 relative">
+      <main
+        className="min-h-full flex-1 relative"
+        onClick={() => {
+          if (detailsSearchParam) setDetailsSearchParam('');
+        }}
+      >
         <div className="absolute top-0 left-0 w-full h-full py-8 px-4 overflow-y-auto no-scrollbar">
-          <Suspense fallback={<PhotoCards photos={DUMMY_PHOTOS} />}>
+          <Suspense fallback={<PhotoCardsGrid />}>
             <PhotoGallery
               collectionName={galleryData.collectionName}
               currentPage={Number(searchParams.get(SEARCH_PARAMS.PAGE))}
@@ -80,8 +90,8 @@ export default function GalleryPage() {
       </footer>
       <Outlet
         context={{
-          id: details || '',
-          setId: handleSetDetails,
+          photoSlug: detailsSearchParam,
+          setPhotoSlug: setDetailsSearchParam,
         }}
       />
     </div>

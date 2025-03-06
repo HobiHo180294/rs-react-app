@@ -5,30 +5,85 @@
     @apply text-white text-center uppercase text-2xl font-bold;
   }
 
-	h2 {
+  h2 {
     @apply text-2xl font-medium text-center text-neutral-800 first-letter:uppercase;
   }
 
-	button {
-		@apply px-6 py-2.5 focus:ring-2 disabled:bg-gray-400 cursor-pointer transition duration-300 ease-in-out text-white;
-	}
+  h3 {
+    @apply text-lg font-semibold;
+  }
+
+  button {
+    @apply inline-block overflow-hidden text-center transition-all cursor-pointer focus:outline-none disabled:pointer-events-none;
+  }
+
+  p {
+    @apply text-lg leading-relaxed text-neutral-600 first-letter:uppercase;
+  }
 }
 
 @layer utilities {
-	.button-primary {
-		@apply rounded-tr rounded-br bg-blue-600 hover:bg-blue-700 focus:ring-blue-300;
-	}
+  .ripple {
+    background-position: center;
+    transition: background 0.8s;
+  }
 
-	.button-error {
-		@apply rounded bg-red-600 hover:bg-red-700 focus:ring-red-300;
-	}
+  .ripple:hover {
+    background: var(--ripple-color)
+      radial-gradient(circle, transparent 1%, var(--ripple-color) 1%)
+      center/15000%;
+  }
 
-	.no-scrollbar::-webkit-scrollbar {
-		display: none;
-	}
+  .ripple:active {
+    background-color: var(--ripple-color-active);
+    background-size: 100%;
+    transition: background 0s;
+  }
 
-	.no-scrollbar {
-		-ms-overflow-style: none; 
-		scrollbar-width: none;  
-	}
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-focus {
+    @apply focus:outline-none focus:text-xl transition-all;
+  }
+
+  .button-primary {
+    --ripple-color: theme('colors.blue.400');
+    --ripple-color-active: theme('colors.blue.300');
+    @apply bg-blue-600 text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+  }
+
+  .button-secondary {
+    --ripple-color: theme('colors.gray.700');
+    --ripple-color-active: theme('colors.gray.600');
+    @apply bg-gray-900 text-white focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2;
+  }
+
+  .button-error {
+    --ripple-color: theme('colors.red.400');
+    --ripple-color-active: theme('colors.red.300');
+    @apply bg-red-600 text-white focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2;
+  }
+
+  .skeleton-decoration {
+    @apply bg-gray-200 animate-pulse;
+  }
+
+  .skeleton-paragraph {
+    @apply w-full h-4 rounded;
+  }
+
+  .skeleton-h2 {
+    @apply h-8 rounded;
+  }
+
+  .skeleton-h3 {
+    @apply h-6 rounded;
+  }
 }

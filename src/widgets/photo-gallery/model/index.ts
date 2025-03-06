@@ -1,6 +1,6 @@
-import { Gallery } from '@/entities/gallery/model';
+import { GalleryData } from '@/shared/types';
 
-export interface PhotoGalleryProps extends Gallery {
+export interface PhotoGalleryProps extends GalleryData {
   currentPage: number;
   onPageChange: (page: number) => void;
 }

@@ -11,10 +11,10 @@ export default defineConfig({
     tailwindcss(),
     svgr({
       svgrOptions: {
-        exportType: 'default',
         ref: true,
         svgo: false,
         titleProp: true,
+        exportType: 'named',
       },
       include: '**/*.svg',
     }),

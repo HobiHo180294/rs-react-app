@@ -7,7 +7,10 @@ export const ErrorTrigger = () => {
   if (isActive) throw new Error(ERRORS.MANUAL);
 
   return (
-    <button className="button-error" onClick={() => setIsActive(true)}>
+    <button
+      className="button-error px-6 py-2.5 rounded ripple"
+      onClick={() => setIsActive(true)}
+    >
       Break the application
     </button>
   );

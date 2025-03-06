@@ -1,5 +1,5 @@
+import ErrorBoundary from '@/app/main/providers/error-boundary/ui';
 import App from '@/app/ui';
-import ErrorBoundary from '@/entities/error-boundary/ui';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';

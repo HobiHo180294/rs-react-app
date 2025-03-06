@@ -12,7 +12,6 @@ export const ERRORS = {
 
 export const FALLBACKS = {
   NOT_FOUND: 'No results found',
-  NO_TITLE: 'Untitled',
   NO_DESCRIPTION: 'No description available',
 } as const;
 
@@ -21,3 +20,5 @@ export const SEARCH_PARAMS = {
   PAGE: 'page',
   DETAILS: 'details',
 } as const;
+
+export const THREE_ITEMS: undefined[] = [...Array(3)];

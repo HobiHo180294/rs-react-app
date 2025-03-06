@@ -1,4 +1,6 @@
+import { InputHTMLAttributes } from 'react';
+
 export interface SearchBarProps {
-  defaultValue?: string;
+  inputProps: InputHTMLAttributes<HTMLInputElement>;
   onSearch: (query: string) => void;
 }

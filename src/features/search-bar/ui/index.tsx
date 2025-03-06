@@ -1,7 +1,8 @@
+import { cn } from '@/shared/utils';
 import { FormEvent, useRef } from 'react';
 import { SearchBarProps } from '../model';
 
-export const SearchBar = ({ defaultValue, onSearch }: SearchBarProps) => {
+export const SearchBar = ({ inputProps, onSearch }: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>): void => {
@@ -14,16 +15,22 @@ export const SearchBar = ({ defaultValue, onSearch }: SearchBarProps) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex w-75">
+    <form onSubmit={handleSearch} className="flex max-w-75 w-full">
       <input
-        className="bg-gray-50 border border-gray-300 text-sm w-full indent-2 p-2.5 outline-none focus:border-blue-500 focus:ring-2 rounded-tl rounded-bl"
         ref={inputRef}
+        className={cn(
+          'bg-gray-50 border border-gray-300 text-sm w-full indent-2 p-2.5 outline-none focus:border-blue-500 focus:ring-2 rounded-tl rounded-bl',
+          inputProps.className
+        )}
         type="text"
-        defaultValue={defaultValue}
         placeholder="Nature, Birds, Cats, Shoes,..."
         autoFocus
+        {...inputProps}
       />
-      <button className="button-primary" type="submit">
+      <button
+        className="button-primary py-2.5 max-w-20 w-full rounded-tr rounded-br ripple"
+        type="submit"
+      >
         Search
       </button>
     </form>

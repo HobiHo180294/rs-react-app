@@ -1,4 +1,4 @@
-export { default as CloseIcon } from './close.svg';
-export { default as DownloadIcon } from './download.svg';
-export { default as EyeIcon } from './eye.svg';
-export { default as LikeIcon } from './like.svg';
+export { ReactComponent as CloseIcon } from './close.svg';
+export { ReactComponent as DownloadIcon } from './download.svg';
+export { ReactComponent as EyeIcon } from './eye.svg';
+export { ReactComponent as LikeIcon } from './like.svg';

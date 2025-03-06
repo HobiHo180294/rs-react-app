@@ -8,15 +8,15 @@ export const useFetch = <T, A extends unknown[]>(
   const [state, setState] = useState<{
     data: T | null;
     isLoading: boolean;
-    error: string;
+    errorMessage: string;
   }>({
     data: null,
     isLoading: false,
-    error: '',
+    errorMessage: '',
   });
 
   const fetchData = async (...args: A) => {
-    setState((prev) => ({ ...prev, isLoading: true, error: '' }));
+    setState((prev) => ({ ...prev, isLoading: true, errorMessage: '' }));
 
     try {
       const data = await fetchFunction(...args);
@@ -24,7 +24,7 @@ export const useFetch = <T, A extends unknown[]>(
     } catch (error) {
       setState((prev) => ({
         ...prev,
-        error: (error as Error).message,
+        errorMessage: (error as Error).message,
       }));
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
@@ -32,7 +32,7 @@ export const useFetch = <T, A extends unknown[]>(
   };
 
   useEffect(() => {
-    if (initialArgs.every(Boolean)) fetchData(...initialArgs);
+    fetchData(...initialArgs);
   }, deps);
 
   return { ...state, refetch: fetchData };
