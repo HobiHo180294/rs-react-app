@@ -8,5 +8,5 @@ export interface PhotoDetailsContentProps
   title?: string;
   description?: string;
   user?: UserBasic;
-  detailsUrl?: string;
+  originalPhotoLink?: string;
 }

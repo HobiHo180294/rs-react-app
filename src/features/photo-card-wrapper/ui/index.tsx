@@ -27,9 +27,14 @@ export const PhotoCardWrapper = ({ photo }: PhotoCardWrapperProps) => {
       }}
     >
       <PhotoCard
-        imageProps={{ src: urls.small }}
-        title={formatSlug(slug, id)}
-        description={description || alt_description || FALLBACKS.NO_DESCRIPTION}
+        data={{
+          imageProps: {
+            src: urls.small,
+          },
+          title: formatSlug(slug, id),
+          description:
+            description || alt_description || FALLBACKS.NO_DESCRIPTION,
+        }}
       />
     </article>
   );

@@ -11,14 +11,18 @@ export const PhotoDetailsContent = ({
   topics,
   metrics,
   user,
-  detailsUrl,
+  originalPhotoLink,
 }: PhotoDetailsContentProps) => (
   <div className="flex flex-col h-full p-6 gap-6">
     <div className="flex-1 space-y-6 overflow-auto no-scrollbar break-words">
       {title ? (
         <h2 className="max-w-50 mx-auto break-words uppercase">{title}</h2>
       ) : (
-        <div className="skeleton-decoration skeleton-h2 w-48 mx-auto" />
+        <div
+          role="status"
+          aria-label="Loading title"
+          className="skeleton-decoration skeleton-h2 w-48 mx-auto"
+        />
       )}
       {description ? (
         <LinkifyText className="text-justify" text={description} />
@@ -36,19 +40,27 @@ export const PhotoDetailsContent = ({
           @{user.username}
         </Link>
       ) : (
-        <div className="skeleton-decoration w-48 h-4 rounded" />
+        <div
+          role="status"
+          aria-label="Loading author information"
+          className="skeleton-decoration w-48 h-4 rounded"
+        />
       )}
     </div>
-    {detailsUrl ? (
+    {originalPhotoLink ? (
       <Link
-        to={detailsUrl}
+        to={originalPhotoLink}
         target="_blank"
         className="w-full py-2.5 text-center rounded-lg button-secondary ripple"
       >
         WATCH FULL
       </Link>
     ) : (
-      <div className="skeleton-decoration w-full h-12 rounded-lg" />
+      <div
+        role="status"
+        aria-label="Loading details link"
+        className="skeleton-decoration w-full h-12 rounded-lg"
+      />
     )}
   </div>
 );

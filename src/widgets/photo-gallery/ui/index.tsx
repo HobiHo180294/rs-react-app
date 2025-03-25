@@ -1,7 +1,8 @@
-import { ERRORS, FALLBACKS } from '@/shared/constants';
+import { ERRORS } from '@/shared/constants';
 import { usePhotoGallery } from '@/shared/hooks';
 import { ErrorMessage } from '@/shared/ui/error-message/ui';
 import { PaginatedPhotoCardsGrid } from '@/widgets/photo-cards-grid/paginated/ui';
+import { PhotoCardsGrid } from '@/widgets/photo-cards-grid/ui';
 import { PhotoGalleryProps } from '../model';
 
 export default function PhotoGallery({
@@ -22,16 +23,19 @@ export default function PhotoGallery({
     );
   }
   if (isLoading) return <PaginatedPhotoCardsGrid />;
-  if (!gallery.results.length) return <h2>{FALLBACKS.NOT_FOUND}</h2>;
 
-  return (
+  const { results, total_pages } = gallery;
+
+  return results.length ? (
     <PaginatedPhotoCardsGrid
-      photos={gallery.results}
+      photos={results}
       paginationConfig={{
         currentPage,
-        totalPages: gallery.total_pages,
+        totalPages: total_pages,
         onPageChange: handlePageChange,
       }}
     />
+  ) : (
+    <PhotoCardsGrid photos={results} />
   );
 }

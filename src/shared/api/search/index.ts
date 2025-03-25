@@ -36,11 +36,11 @@ class SearchApi {
         };
   }
 
-  async searchPhotoDetails(id: string): Promise<PhotoFull> {
+  async searchPhotoDetails(slug: string): Promise<PhotoFull> {
     const { VITE_API_BASE_URL, VITE_ACCESS_KEY } = import.meta.env;
 
     const response = (await (
-      await fetch(`${VITE_API_BASE_URL}/photos/${id}`, {
+      await fetch(`${VITE_API_BASE_URL}/photos/${slug}`, {
         method: 'GET',
         headers: {
           Authorization: `Client-ID ${VITE_ACCESS_KEY}`,

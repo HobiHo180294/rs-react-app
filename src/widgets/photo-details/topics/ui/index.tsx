@@ -3,20 +3,21 @@ import { PhotoDetailsTopicsProps } from '../model';
 
 const DUMMY_TOPICS: undefined[] = [...Array(9)];
 
-export const PhotoDetailsTopics = ({ topics }: PhotoDetailsTopicsProps) => {
-  if (Array.isArray(topics) && !topics.length) return null;
-
-  return (
+export const PhotoDetailsTopics = ({ topics }: PhotoDetailsTopicsProps) =>
+  Array.isArray(topics) && !topics.length ? null : (
     <div className="space-y-3">
-      {topics ? (
-        <h3>Main Topics</h3>
-      ) : (
-        <div className="skeleton-decoration skeleton-h3 w-48" />
-      )}
-      <ul className="flex flex-wrap gap-3 justify-center">
+      <h3>Main Topics</h3>
+      <ul
+        aria-label="Related topics"
+        className="flex flex-wrap gap-3 justify-center"
+      >
         {(topics || DUMMY_TOPICS).map((topic, index) => (
           <li key={topic?.title || index}>
             <div
+              {...(!topic?.title && {
+                role: 'status',
+                'aria-label': `Loading topic ${index + 1}`,
+              })}
               className={cn(
                 'rounded-full',
                 topic?.title
@@ -31,4 +32,3 @@ export const PhotoDetailsTopics = ({ topics }: PhotoDetailsTopicsProps) => {
       </ul>
     </div>
   );
-};

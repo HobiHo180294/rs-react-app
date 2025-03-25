@@ -1,4 +1,4 @@
 export interface PhotoDetailsContentWrapperProps {
   photoSlug: string;
-  onClose: () => void;
+  onClose: VoidFunction;
 }

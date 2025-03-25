@@ -22,9 +22,8 @@ export const PhotoDetailsContentWrapper = ({
     errorMessage,
   } = useFetch(searchApi.searchPhotoDetails, [photoSlug], [photoSlug]);
 
-  if (isLoading) return <PhotoDetailsContent />;
-
   const renderResult = () => {
+    if (isLoading) return <PhotoDetailsContent />;
     if (errorMessage) {
       return (
         <ErrorMessage
@@ -68,7 +67,7 @@ export const PhotoDetailsContentWrapper = ({
           { id: 'likes', children: <LikeIcon />, quantity: likes },
         ]}
         user={user}
-        detailsUrl={urls.full}
+        originalPhotoLink={urls.full}
       />
     );
   };

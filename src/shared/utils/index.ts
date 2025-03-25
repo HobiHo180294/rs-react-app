@@ -27,4 +27,4 @@ export const formatNumber = (number: number): string => {
   return isNegative ? '-' + formatted : formatted;
 };
 
-export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
+export const cn = (...inputs: ClassValue[]): string => twMerge(clsx(inputs));

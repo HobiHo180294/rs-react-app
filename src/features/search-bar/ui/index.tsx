@@ -15,24 +15,27 @@ export const SearchBar = ({ inputProps, onSearch }: SearchBarProps) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex max-w-75 w-full">
-      <input
-        ref={inputRef}
-        className={cn(
-          'bg-gray-50 border border-gray-300 text-sm w-full indent-2 p-2.5 outline-none focus:border-blue-500 focus:ring-2 rounded-tl rounded-bl',
-          inputProps.className
-        )}
-        type="text"
-        placeholder="Nature, Birds, Cats, Shoes,..."
-        autoFocus
-        {...inputProps}
-      />
-      <button
-        className="button-primary py-2.5 max-w-20 w-full rounded-tr rounded-br ripple"
-        type="submit"
-      >
-        Search
-      </button>
+    <form onSubmit={handleSearch} className="max-w-75 w-full">
+      <fieldset className="flex">
+        <input
+          aria-label="Explore Gallery"
+          ref={inputRef}
+          className={cn(
+            'bg-gray-50 border border-gray-300 text-sm w-full indent-2 p-2.5 outline-none focus:border-blue-500 focus:ring-2 rounded-tl rounded-bl',
+            inputProps.className
+          )}
+          type="text"
+          placeholder="Nature, Birds, Cats, Shoes,..."
+          autoFocus
+          {...inputProps}
+        />
+        <button
+          className="button-primary py-2.5 max-w-20 w-full rounded-tr rounded-br ripple"
+          type="submit"
+        >
+          Search
+        </button>
+      </fieldset>
     </form>
   );
 };

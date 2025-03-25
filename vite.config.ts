@@ -6,6 +6,11 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      external: [/\/test\//, /\/mock\//, /\.spec\./, /\.test\./],
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),

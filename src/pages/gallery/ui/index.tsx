@@ -41,7 +41,7 @@ export default function GalleryPage() {
 
   const setDetailsSearchParam: PhotoDetailsContext['setPhotoSlug'] = (
     newValue
-  ) => {
+  ): void => {
     const params = Object.fromEntries(searchParams);
 
     if (newValue) {
