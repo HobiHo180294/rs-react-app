@@ -11,7 +11,7 @@ export const ErrorTrigger = () => {
       className="button-error px-6 py-2.5 rounded ripple"
       onClick={() => setIsActive(true)}
     >
-      Break the application
+      Break the website
     </button>
   );
 };

@@ -1,4 +1,4 @@
-class MockSearchParamsService {
+class MockedSearchParamsService {
   params: URLSearchParams;
   setSearchParams: ReturnType<typeof vi.fn>;
 
@@ -23,4 +23,4 @@ class MockSearchParamsService {
   }
 }
 
-export const mockSearchParamsService = new MockSearchParamsService();
+export const mockedSearchParamsService = new MockedSearchParamsService();

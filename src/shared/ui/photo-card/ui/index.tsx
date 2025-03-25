@@ -23,7 +23,7 @@ export const PhotoCard = ({ data }: PhotoCardProps) => {
       )}
       <div className="py-2 px-4 flex flex-col gap-2 break-words">
         {title ? (
-          <h2>{title}</h2>
+          <h2 className="first-letter:uppercase">{title}</h2>
         ) : (
           <div
             className="skeleton-decoration skeleton-h2 w-48 mx-auto"
@@ -32,7 +32,7 @@ export const PhotoCard = ({ data }: PhotoCardProps) => {
           />
         )}
         {description ? (
-          <LinkifyText text={description} />
+          <LinkifyText className="first-letter:uppercase" text={description} />
         ) : (
           <SkeletonParagraph />
         )}

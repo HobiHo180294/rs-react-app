@@ -1,24 +1,46 @@
 @import 'tailwindcss';
 
-@layer base {
-  h1 {
-    @apply text-white text-center uppercase text-2xl font-bold;
-  }
+@theme {
+  --ripple-color: transparent;
+  --ripple-color-active: transparent;
+}
 
+@layer base {
   h2 {
-    @apply text-2xl font-medium text-center text-neutral-800 first-letter:uppercase;
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    color: var(--color-neutral-800);
   }
 
   h3 {
-    @apply text-lg font-semibold;
-  }
-
-  button {
-    @apply inline-block overflow-hidden text-center transition-all cursor-pointer focus:outline-none disabled:pointer-events-none;
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+    font-weight: var(--font-weight-semibold);
   }
 
   p {
-    @apply text-lg leading-relaxed text-neutral-600 first-letter:uppercase;
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+    color: var(--color-neutral-600);
+  }
+
+  button {
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    transition: all var(--tw-duration, var(--default-transition-duration))
+      var(--tw-ease, var(--default-transition-timing-function));
+    cursor: pointer;
+
+    &:focus {
+      outline-style: none;
+    }
+
+    &:disabled {
+      pointer-events: none;
+    }
   }
 }
 
@@ -26,64 +48,121 @@
   .ripple {
     background-position: center;
     transition: background 0.8s;
-  }
 
-  .ripple:hover {
-    background: var(--ripple-color)
-      radial-gradient(circle, transparent 1%, var(--ripple-color) 1%)
-      center/15000%;
-  }
+    &:hover {
+      background: var(--ripple-color)
+        radial-gradient(circle, transparent 1%, var(--ripple-color) 1%)
+        center/15000%;
+    }
 
-  .ripple:active {
-    background-color: var(--ripple-color-active);
-    background-size: 100%;
-    transition: background 0s;
-  }
-
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+    &:active {
+      background-color: var(--ripple-color-active);
+      background-size: 100%;
+      transition: background 0s;
+    }
   }
 
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
-  .text-focus {
-    @apply focus:outline-none focus:text-xl transition-all;
-  }
-
-  .button-primary {
-    --ripple-color: theme('colors.blue.400');
-    --ripple-color-active: theme('colors.blue.300');
-    @apply bg-blue-600 text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
-  }
-
-  .button-secondary {
-    --ripple-color: theme('colors.gray.700');
-    --ripple-color-active: theme('colors.gray.600');
-    @apply bg-gray-900 text-white focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2;
-  }
-
-  .button-error {
-    --ripple-color: theme('colors.red.400');
-    --ripple-color-active: theme('colors.red.300');
-    @apply bg-red-600 text-white focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2;
+  .focused-text {
+    &:focus-visible {
+      font-size: 1.25rem;
+      line-height: 140%;
+      outline: none;
+      transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
   }
 
   .skeleton-decoration {
-    @apply bg-gray-200 animate-pulse;
+    background-color: var(--color-gray-200);
+    animation: var(--animate-pulse);
+  }
+}
+
+@layer components {
+  .button-primary {
+    --ripple-color: var(--color-blue-400);
+    --ripple-color-active: var(--color-blue-300);
+
+    background-color: var(--color-blue-600);
+    color: var(--color-white);
+
+    &:focus {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0
+        calc(2px + var(--tw-ring-offset-width))
+        var(--tw-ring-color, currentColor);
+      --tw-ring-color: var(--color-blue-500);
+      --tw-ring-offset-width: 2px;
+      --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0
+        var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+        var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+
+  .button-secondary {
+    --ripple-color: var(--color-gray-700);
+    --ripple-color-active: var(--color-gray-600);
+
+    background-color: var(--color-gray-900);
+    color: var(--color-white);
+
+    &:focus {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0
+        calc(2px + var(--tw-ring-offset-width))
+        var(--tw-ring-color, currentColor);
+      --tw-ring-color: var(--color-gray-900);
+      --tw-ring-offset-width: 2px;
+      --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0
+        var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+        var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+
+  .button-error {
+    --ripple-color: var(--color-red-400);
+    --ripple-color-active: var(--color-red-300);
+
+    background-color: var(--color-red-600);
+    color: var(--color-white);
+
+    &:focus {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0
+        calc(2px + var(--tw-ring-offset-width))
+        var(--tw-ring-color, currentColor);
+      --tw-ring-color: var(--color-red-500);
+      --tw-ring-offset-width: 2px;
+      --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0
+        var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+        var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
   }
 
   .skeleton-paragraph {
-    @apply w-full h-4 rounded;
+    width: 100%;
+    height: calc(var(--spacing) * 4);
+    border-radius: 0.25rem;
   }
 
   .skeleton-h2 {
-    @apply h-8 rounded;
+    height: calc(var(--spacing) * 8);
+    border-radius: 0.25rem;
   }
 
   .skeleton-h3 {
-    @apply h-6 rounded;
+    height: calc(var(--spacing) * 6);
+    border-radius: 0.25rem;
   }
 }

@@ -2,7 +2,7 @@ import { MOCKED_BASIC_PHOTO, MOCKED_FULL_PHOTO } from '@/shared/api/mock/data';
 import { MOCKED_PHOTO_DETAILS_ROUTE } from '@/shared/api/mock/routes';
 import { createServer } from '@/shared/api/mock/server';
 import { SEARCH_PARAMS } from '@/shared/constants';
-import { mockSearchParamsService } from '@/shared/test/services';
+import { mockedSearchParamsService } from '@/shared/test/services';
 import { expectElementPresence } from '@/shared/test/utils';
 import { user } from '@/shared/test/vitest.setup';
 import { PhotoDetailsSidebar } from '@/widgets/photo-details/sidebar/ui';
@@ -20,9 +20,11 @@ vi.mock('react-router', async () => {
     useSearchParams,
     useOutletContext: vi.fn(() => ({
       photoSlug:
-        mockSearchParamsService.params.get(SEARCH_PARAMS.DETAILS) || '',
+        mockedSearchParamsService.params.get(SEARCH_PARAMS.DETAILS) || '',
       setPhotoSlug: vi.fn((slug) => {
-        if (!slug) mockSearchParamsService.params.delete(SEARCH_PARAMS.DETAILS);
+        if (!slug) {
+          mockedSearchParamsService.params.delete(SEARCH_PARAMS.DETAILS);
+        }
       }),
     })),
   };

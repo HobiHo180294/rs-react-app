@@ -2,12 +2,12 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, vi } from 'vitest';
-import { mockedLocalStorage, mockSearchParamsService } from './services';
+import { mockedLocalStorage, mockedSearchParamsService } from './services';
 
 vi.mock('useSearchParams', () => ({
   useSearchParams: vi.fn(() => [
-    mockSearchParamsService.params,
-    mockSearchParamsService.setSearchParams,
+    mockedSearchParamsService.params,
+    mockedSearchParamsService.setSearchParams,
   ]),
 }));
 
@@ -56,7 +56,7 @@ beforeAll(() =>
 );
 
 afterEach(() => {
-  if (mockSearchParamsService.params.size) mockSearchParamsService.reset();
+  if (mockedSearchParamsService.params.size) mockedSearchParamsService.reset();
   if (Object.keys(mockedLocalStorage['store']).length) {
     mockedLocalStorage.clear();
   }

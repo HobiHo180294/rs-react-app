@@ -25,7 +25,10 @@ export const PhotoDetailsContent = ({
         />
       )}
       {description ? (
-        <LinkifyText className="text-justify" text={description} />
+        <LinkifyText
+          className="text-justify first-letter:uppercase"
+          text={description}
+        />
       ) : (
         <SkeletonParagraph />
       )}
@@ -33,7 +36,7 @@ export const PhotoDetailsContent = ({
       <PhotoDetailsMetrics metrics={metrics} />
       {user ? (
         <Link
-          className="font-medium text-focus"
+          className="font-medium focused-text"
           to={user.links.html}
           target="_blank"
         >

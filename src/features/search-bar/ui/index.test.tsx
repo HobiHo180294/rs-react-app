@@ -1,5 +1,5 @@
 import GalleryPage from '@/pages/gallery/ui';
-import { LOCAL_STORAGE_GALLERY_KEY } from '@/shared/constants';
+import { LOCAL_STORAGE_KEYS } from '@/shared/constants';
 import { mockedLocalStorage } from '@/shared/test/services';
 import { user } from '@/shared/test/vitest.setup';
 import { GalleryData } from '@/shared/types';
@@ -52,7 +52,7 @@ describe('<SearchBar />', () => {
     await user.click(searchButton);
 
     const localStorageValue = mockedLocalStorage.getItem(
-      LOCAL_STORAGE_GALLERY_KEY
+      LOCAL_STORAGE_KEYS.GALLERY
     );
 
     if (localStorageValue) {
@@ -68,7 +68,7 @@ describe('<SearchBar />', () => {
     const collectionName = 'Nature';
 
     mockedLocalStorage.setItem(
-      LOCAL_STORAGE_GALLERY_KEY,
+      LOCAL_STORAGE_KEYS.GALLERY,
       JSON.stringify({
         collectionName,
       })

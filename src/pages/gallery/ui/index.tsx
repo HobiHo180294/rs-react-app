@@ -1,6 +1,6 @@
 import { ErrorTrigger } from '@/features/error-trigger/ui';
 import { SearchBar } from '@/features/search-bar/ui';
-import { LOCAL_STORAGE_GALLERY_KEY, SEARCH_PARAMS } from '@/shared/constants';
+import { LOCAL_STORAGE_KEYS, SEARCH_PARAMS } from '@/shared/constants';
 import { useLocalStorage } from '@/shared/hooks';
 import { GalleryData, PhotoDetailsContext } from '@/shared/types';
 import { PhotoCardsGrid } from '@/widgets/photo-cards-grid/ui';
@@ -11,7 +11,7 @@ const PhotoGallery = lazy(() => import('@/widgets/photo-gallery/ui'));
 
 export default function GalleryPage() {
   const [galleryData, setGalleryData] = useLocalStorage<GalleryData>(
-    LOCAL_STORAGE_GALLERY_KEY,
+    LOCAL_STORAGE_KEYS.GALLERY,
     {
       collectionName: '',
     }
@@ -41,7 +41,7 @@ export default function GalleryPage() {
 
   const setDetailsSearchParam: PhotoDetailsContext['setPhotoSlug'] = (
     newValue
-  ): void => {
+  ) => {
     const params = Object.fromEntries(searchParams);
 
     if (newValue) {
@@ -56,7 +56,9 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen flex flex-col overflow-hidden">
       <header className="bg-gray-900 flex flex-col items-center py-10 gap-5">
-        <h1>Gallery</h1>
+        <h1 className="text-white text-center uppercase text-2xl font-bold">
+          Gallery
+        </h1>
         <SearchBar
           inputProps={{
             defaultValue: galleryData.collectionName,

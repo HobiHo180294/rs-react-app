@@ -1,4 +1,7 @@
-export const LOCAL_STORAGE_GALLERY_KEY = 'gallery';
+export const LOCAL_STORAGE_KEYS = {
+  GALLERY: 'gallery',
+  VISITED_LINKS: 'visitedLinks',
+} as const;
 
 export const ERRORS = {
   MANUAL:

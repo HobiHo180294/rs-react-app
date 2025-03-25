@@ -1,2 +1,2 @@
-export { mockedLocalStorage } from './local-storage';
-export { mockSearchParamsService } from './mock-search-params';
+export { mockedLocalStorage } from './mocked-local-storage';
+export { mockedSearchParamsService } from './mocked-search-params';

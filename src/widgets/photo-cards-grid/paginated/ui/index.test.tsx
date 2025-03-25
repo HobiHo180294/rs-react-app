@@ -1,7 +1,7 @@
 import { MOCKED_BASIC_PHOTO } from '@/shared/api/mock/data';
 import { generateMockedBasicPhotos } from '@/shared/api/mock/utils';
 import { SEARCH_PARAMS } from '@/shared/constants';
-import { mockSearchParamsService } from '@/shared/test/services';
+import { mockedSearchParamsService } from '@/shared/test/services';
 import { user } from '@/shared/test/vitest.setup';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
@@ -9,7 +9,7 @@ import { PaginatedPhotoCardsGrid } from '.';
 
 describe('<PaginatedPhotoCardsGrid />', () => {
   const getPageSearchParamValue = (): number =>
-    Number(mockSearchParamsService.params.get(SEARCH_PARAMS.PAGE) || '1');
+    Number(mockedSearchParamsService.params.get(SEARCH_PARAMS.PAGE) || '1');
 
   it('Should update URL query parameter when page changes!', async () => {
     const photos = generateMockedBasicPhotos(MOCKED_BASIC_PHOTO);
@@ -23,7 +23,7 @@ describe('<PaginatedPhotoCardsGrid />', () => {
             currentPage: initialPageSearchParamValue,
             totalPages: photos.length,
             onPageChange: (page) =>
-              mockSearchParamsService.setSearchParams(
+              mockedSearchParamsService.setSearchParams(
                 (prev: URLSearchParams) => ({
                   [SEARCH_PARAMS.SEARCH]: prev.get(SEARCH_PARAMS.SEARCH) || '',
                   [SEARCH_PARAMS.PAGE]: String(page),
