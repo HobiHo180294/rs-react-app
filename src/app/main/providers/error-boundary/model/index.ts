@@ -1,3 +1,5 @@
+import { Nullable } from '@/shared/types';
+
 export interface ErrorBoundaryState {
-  error: Error | null;
+  error: Nullable<Error>;
 }

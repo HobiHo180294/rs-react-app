@@ -1,4 +1,5 @@
 import { DependencyList, useEffect, useState } from 'react';
+import { Nullable } from '../types';
 
 export const useFetch = <T, A extends unknown[]>(
   fetchFunction: (...args: A) => Promise<T>,
@@ -6,7 +7,7 @@ export const useFetch = <T, A extends unknown[]>(
   deps: DependencyList
 ) => {
   const [state, setState] = useState<{
-    data: T | null;
+    data: Nullable<T>;
     isLoading: boolean;
     errorMessage: string;
   }>({
