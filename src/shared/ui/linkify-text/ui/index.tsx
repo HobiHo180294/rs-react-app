@@ -12,14 +12,12 @@ export const LinkifyText = ({ text, ...rest }: LinkifyTextProps) => {
 
   const urlRegExp = /(\b(?:https?:\/\/|www\.)[^\s]+)/g;
 
-  const handleClick = (url: string): void => {
-    if (!visitedLinks.includes(url)) setVisitedLinks((prev) => [...prev, url]);
-  };
-
   return (
     <p {...rest}>
       {text.split(urlRegExp).map((part) => {
         if (!part.match(urlRegExp)) return part;
+
+        const isVisited = visitedLinks.includes(part);
 
         return (
           <Link
@@ -28,9 +26,11 @@ export const LinkifyText = ({ text, ...rest }: LinkifyTextProps) => {
             target="_blank"
             rel="noopener noreferrer"
             className={cn('text-md text-blue-500 underline focused-text', {
-              'text-purple-600': visitedLinks.includes(part),
+              'text-purple-600': isVisited,
             })}
-            onClick={() => handleClick(part)}
+            onClick={() => {
+              if (!isVisited) setVisitedLinks((prev) => [...prev, part]);
+            }}
           >
             {part}
           </Link>
